@@ -1,22 +1,54 @@
 "use client";
 
-import React from "react";
-import { Button } from "@/components/ui/Button";
+import React, { useState, useEffect } from "react";
 import { NeuralBackground } from "@/components/ui/NeuralBackground";
-import { companyInfo, heroContent } from "@/data/content";
 
 export const HeroSection: React.FC = () => {
-  const whatsappUrl = `https://wa.me/${companyInfo.phone.replace(
-    /[^0-9]/g,
-    ""
-  )}?text=${encodeURIComponent(companyInfo.whatsappMessage)}`;
+  const [typingText, setTypingText] = useState("");
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
 
-  const scrollToServices = () => {
-    const element = document.getElementById("servicios");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const words = [
+    "tu restaurante",
+    "tu consultorio",
+    "tu boutique",
+    "tu emprendimiento",
+    "tu oficina",
+    "tu comercializadora",
+    "tu despacho jurídico",
+    "tu escuela",
+    "tu centro de atención a clientes",
+  ];
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
+    const typeText = () => {
+      const currentWord = words[currentWordIndex];
+
+      if (!isDeleting && typingText.length < currentWord.length) {
+        // Escribiendo
+        setTypingText(currentWord.slice(0, typingText.length + 1));
+        timeout = setTimeout(typeText, 100);
+      } else if (!isDeleting && typingText.length === currentWord.length) {
+        // Pausa antes de borrar
+        timeout = setTimeout(() => setIsDeleting(true), 2000);
+      } else if (isDeleting && typingText.length > 0) {
+        // Borrando
+        setTypingText(typingText.slice(0, -1));
+        timeout = setTimeout(typeText, 50);
+      } else if (isDeleting && typingText.length === 0) {
+        // Cambiar a siguiente palabra
+        setIsDeleting(false);
+        setCurrentWordIndex((prev) => (prev + 1) % words.length);
+        timeout = setTimeout(typeText, 100);
+      }
+    };
+
+    timeout = setTimeout(typeText, 100);
+
+    return () => clearTimeout(timeout);
+  }, [currentWordIndex, words, typingText, isDeleting]);
 
   return (
     <section
@@ -29,42 +61,49 @@ export const HeroSection: React.FC = () => {
       {/* Content overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="max-w-4xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 sm:pt-24 lg:pt-32">
+        <div className="max-w-6xl mx-auto">
           {/* Main heading */}
-          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-            <span className="text-primary">
-              {heroContent.title.split(" ").slice(0, 3).join(" ")}
+          <h1
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-6 sm:mb-8 leading-tight"
+            style={{ fontFamily: "Helvetica, Arial, sans-serif" }}
+          >
+            <span className="text-white block mb-2">
+              En Agencia Alpha creemos que la{" "}
+              <span className="text-primary">IA</span> no es solo para grandes
+              corporativos.
             </span>
-            <br />
-            <span className="text-white">
-              {heroContent.title.split(" ").slice(3).join(" ")}
+            <span className="text-white block mb-2">
+              Es para:{" "}
+              <span className="text-primary inline-block text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">
+                {typingText}
+                <span className="animate-pulse text-white font-bold">|</span>
+              </span>
             </span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-            {heroContent.subtitle}
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button
-              href={whatsappUrl}
-              variant="primary"
-              size="lg"
-              className="w-full sm:w-auto"
+          <div className="max-w-4xl mx-auto px-4 mb-8 sm:mb-12">
+            <p
+              className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-200 mb-6 leading-relaxed font-light"
+              style={{ fontFamily: "Helvetica, Arial, sans-serif" }}
             >
-              {heroContent.primaryCTA}
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="w-full sm:w-auto"
-              onClick={scrollToServices}
+              Creamos automatizaciones inteligentes que trabajan como tu
+              recepcionista, tu asistente de ventas o tu entrevistador de
+              personal, 24/7, sin cansarse y sin que tengas que pagar nóminas
+              extra.
+            </p>
+            <p
+              className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-200 leading-relaxed font-light"
+              style={{ fontFamily: "Helvetica, Arial, sans-serif" }}
             >
-              {heroContent.secondaryCTA}
-            </Button>
+              Nuestra misión no es venderte tecnología.
+              <br />
+              <span className="text-primary font-semibold">
+                👉 Es ayudarte a crecer, simplificar tu vida y que tu negocio
+                tenga siempre alguien atendiendo a tus clientes.
+              </span>
+            </p>
           </div>
 
           {/* Trust indicators */}

@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navigation } from "@/components/sections/Navigation";
 import { Footer } from "@/components/sections/Footer";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
+import { ChatWidget } from "@/components/ui/ChatWidget";
 import { CookieBanner } from "@/components/ui/CookieBanner";
 import { companyInfo } from "@/data/content";
 
@@ -86,6 +87,7 @@ export default function RootLayout({
         <Navigation />
         <main className="min-h-screen">{children}</main>
         <Footer />
+        <ChatWidget />
         <WhatsAppButton />
         <CookieBanner />
       </body>

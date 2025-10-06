@@ -1,0 +1,24 @@
+================================================================
+CONFIGURACIÓN DEL WEBHOOK DE N8N - COPIA ESTE CONTENIDO
+================================================================
+
+Crea un archivo llamado: .env.local
+En la raíz del proyecto: /Users/carloscesargilperalta/Desktop/agencia-alpha/
+
+Contenido exacto del archivo .env.local:
+
+NEXT_PUBLIC_N8N_CHAT_WEBHOOK=https://proyectos-internos-alpha-n8n.cowyzi.easypanel.host/webhook/webhook/chat-alpha
+
+================================================================
+
+DESPUÉS DE CREAR EL ARCHIVO:
+
+1. Guarda el archivo .env.local
+2. Detén el servidor (Ctrl+C en la terminal)
+3. Reinicia con: cd /Users/carloscesargilperalta/Desktop/agencia-alpha && PORT=3005 npm run dev
+4. Abre http://localhost:3005
+5. Haz clic en el botón Alpha naranja
+6. ¡Prueba el chat!
+
+================================================================
+
