@@ -73,7 +73,7 @@ export const AboutUsSection: React.FC = () => {
           {/* Valores y estadísticas */}
           <div className="space-y-8">
             {/* Valores */}
-            <AnimateOnScroll delay={0.2}>
+            <AnimateOnScroll>
               <div>
                 <h3 className="text-2xl font-bold text-white mb-6">
                   Nuestros Valores
@@ -90,7 +90,7 @@ export const AboutUsSection: React.FC = () => {
             </AnimateOnScroll>
 
             {/* Estadísticas */}
-            <AnimateOnScroll delay={0.4}>
+            <AnimateOnScroll>
               <Card variant="gradient" className="p-8">
                 <h3 className="text-2xl font-bold text-white mb-6 text-center">
                   ¿Por qué elegir Agencia Alpha?

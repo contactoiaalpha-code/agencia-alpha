@@ -183,7 +183,7 @@ export const ContactSection: React.FC = () => {
           </AnimateOnScroll>
 
           {/* Formulario de contacto */}
-          <AnimateOnScroll delay={0.2}>
+          <AnimateOnScroll>
             <Card className="p-8">
               <h3 className="text-2xl font-bold text-dark mb-6">
                 Envíanos un Mensaje
